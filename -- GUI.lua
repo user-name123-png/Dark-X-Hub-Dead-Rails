@@ -4,8 +4,11 @@ local Window = Library.CreateLib("🗡️Dark X Hub by Dark_MAX🤏🧠🐓🗡�
 ----------------------------------- SUBSCRIDE -----------------------------------
 local Tab = Window:NewTab("🖐️Welcome🖐️")
 local Section = Tab:NewSection("📌Subscride📌")
-Section:NewButton("Subscribe Me", "Subscribe to the YouTube channel Dark_MAX 0207.", function()
-    print("Thank you for subscribing.")
+Section:NewButton("Subscribe Me(YouTube)", "Subscribe to the YouTube channel Dark_MAX0207.", function()
+    print("Thank you for subscribing To The YouTube.")
+end)
+Section:NewButton("Subscribe Me(TikTok)", "Subscribe to the TikTok channel Dark_MAX0207.", function()
+    print("Thank you for subscribing To The TikTok.")
 end)
 ----------------------------------- MENU -----------------------------------
 local Tab = Window:NewTab("🛡️MENU🛡️")
