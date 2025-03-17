@@ -3,12 +3,14 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("🗡️Dark X Hub by Dark_MAX🤏🧠🐓🗡️", "DarkTheme")
 ----------------------------------- SUBSCRIDE -----------------------------------
 local Tab = Window:NewTab("🖐️Welcome🖐️")
-local Section = Tab:NewSection("🔥v1.1🔥")
+local Section = Tab:NewSection("🔥v1.2🔥")
 local Section = Tab:NewSection("📌Subscride📌")
 Section:NewButton("Subscribe Me(YouTube)", "Subscribe to the YouTube channel Dark_MAX0207.", function()
+    setclipboard("https://www.youtube.com/@Dark_MAX0207")
     print("Thank you for subscribing To The YouTube.")
 end)
 Section:NewButton("Subscribe Me(TikTok)", "Subscribe to the TikTok channel dark_3014.", function()
+    setclipboard("https://www.tiktok.com/@dark_3014")
     print("Thank you for subscribing To The TikTok.")
 end)
 ----------------------------------- MENU -----------------------------------
@@ -21,6 +23,7 @@ local range = 100 -- ระยะเก็บไอเทม (เมตร)
 --ระยะดึง
 Section:NewSlider("🎒📈Automatic Period🎒📈", "Automatically adjust storage distance", 1000, 100, function(s) -- 500 (MaxValue) | 0 (MinValue)
     range = s
+    print("🎒📈Automatic Period🎒📈(" + s + ")")
 end)
 --Auto Storage
 local autoStorageEnabled = false
@@ -28,6 +31,12 @@ local autoStorageEnabled = false
 
 Section:NewToggle("🎒Auto Storage🎒", "Automatic collection", function(state)
     autoStorageEnabled = state
+
+    if autoStorageEnabled == true then
+        print("🎒Auto Storage🎒(open)")
+    elseif autoStorageEnabled == false then
+        print("🎒Auto Storage🎒(close)")
+    end
     
     if state then
         task.spawn(function()
@@ -57,7 +66,7 @@ Section:NewToggle("🎒Auto Storage🎒", "Automatic collection", function(state
             -- ให้สคริปต์ทำงานเรื่อย ๆ จนกว่าจะปิด
             while autoStorageEnabled do
                 collectItems()
-                task.wait(0) -- เช็กทุก 1 วินาที (ปรับได้)
+                task.wait() -- เช็กทุก 1 วินาที (ปรับได้)
             end
         end)
     end
@@ -68,10 +77,16 @@ local autoStorageEnabled = false
 Section:NewToggle("🗑️Auto Drop🗑️", "Automatic drop", function(state)
     autoStorageEnabled = state
 
+    if autoStorageEnabled == true then
+        print("🗑️Auto Drop🗑️(open)")
+    elseif autoStorageEnabled == false then
+        print("🗑️Auto Drop🗑️(close)")
+    end
+
     if state then
         while autoStorageEnabled do
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
-            task.wait(0)  -- ทิ้งไอเทมทุก 1 วินาที (ปรับได้)
+            task.wait()  -- ทิ้งไอเทมทุก 1 วินาที (ปรับได้)
         end
     end
 end)
@@ -174,6 +189,12 @@ end
 -- เพิ่มปุ่ม Toggle ลงใน UI
 Section:NewToggle("🧬X-Ray🧬", "See through", function(state)
     toggleESP(state)
+
+    if state == true then
+        print("🧬X-Ray🧬(open)")
+    elseif state == false then
+        print("🧬X-Ray🧬(close)")
+    end
 end)
 ----------------------------------- VISUAL EFFECTS -----------------------------------
 local Tab = Window:NewTab("🌏VISUAL EFFECTS🌏")
@@ -181,11 +202,13 @@ local Tab = Window:NewTab("🌏VISUAL EFFECTS🌏")
 local Section = Tab:NewSection("💡Brightness💡")
 ----------------------------------- Adjust Exposure -----------------------------------
 local lighting = game:GetService("Lighting")
-local brightnessLevel = 1 -- ค่าความสว่างเริ่มต้น
+local brightnessLevel = 5 -- ค่าความสว่างเริ่มต้น
 local autoBrightnessEnabled = false -- ตัวแปรเปิด/ปิดระบบปรับแสง
 
 -- สร้างแถบเลื่อน (Slider) สำหรับปรับค่าความสว่าง
 Section:NewSlider("⚡📈Adjust Exposure⚡📈", "Adjust the brightness of the light", 20, 1, function(s)
+    print("⚡📈Adjust Exposure⚡📈(" + s + ")")
+    
     brightnessLevel = s
     if autoBrightnessEnabled then
         lighting.Brightness = brightnessLevel
@@ -195,6 +218,13 @@ end)
 -- สร้าง Toggle สำหรับเปิด/ปิดการปรับแสงอัตโนมัติ
 Section:NewToggle("🔥🔦Auto Brightness🔥🔦", "Enable or disable automatic brightness adjustment", function(state)
     autoBrightnessEnabled = state
+
+    if autoStorageEnabled == true then
+        print("🔥🔦Auto Brightness🔥🔦(open)")
+    elseif autoStorageEnabled == false then
+        print("🔥🔦Auto Brightness🔥🔦(close)")
+    end
+
     if autoBrightnessEnabled then
         -- เปิดใช้งานการปรับแสงอัตโนมัติ
         lighting.Brightness = brightnessLevel
@@ -212,6 +242,8 @@ local autoFogEnabled = false -- สถานะการเปิด/ปิด�
 
 -- แถบเลื่อนปรับค่าความหนาของหมอก (Density)
 Section:NewSlider("🚬📈Fog Density🚬📈", "Adjust the fog density", 20, 0, function(s)
+    print("🚬📈Fog Density🚬📈(" + s + ")")
+
     fogDensity = s / 100 -- แปลงค่าให้เป็นช่วง 0 ถึง 1
     if autoFogEnabled then
         lighting.Atmosphere.Density = fogDensity -- ปรับความหนาของหมอกตามค่าในแถบเลื่อน
@@ -221,6 +253,13 @@ end)
 -- ปุ่ม Toggle สำหรับเปิด/ปิดการใช้งานหมอก
 Section:NewToggle("🚬Enable Fog🚬", "Enable or disable fog", function(state)
     autoFogEnabled = state
+
+    if autoStorageEnabled == true then
+        print("🚬Enable Fog🚬(open)")
+    elseif autoStorageEnabled == false then
+        print("🚬Enable Fog🚬(close)")
+    end
+
     if autoFogEnabled then
         lighting.Atmosphere.Density = fogDensity -- ตั้งค่าความหนาของหมอกเมื่อเปิดใช้งาน
     else
@@ -232,6 +271,51 @@ local Tab = Window:NewTab("⚙️SETTINGS⚙️")
 --Shortcut Key
 local Section = Tab:NewSection("🗝️Shortcut Key🗝️")
 ----------------------------------- Key Code -----------------------------------
-Section:NewKeybind("⌨️🗝️Key Code⌨️🗝️", "Shortcut to close/open UI", Enum.KeyCode.K, function()
+Section:NewKeybind("⌨️🗝️Key Code⌨️🗝️", "Shortcut to close/open GUI", Enum.KeyCode.K, function()
+    print("Turn Off/On The Gui")
 	Library:ToggleUI()
+end)
+----------------------------------- Shortcut Key Auto Collect Items -----------------------------------
+Section:NewKeybind("🎒🗝️Shortcut Key Auto Collect Items🎒🗝️", "Automatic Storage Shortcut Key", Enum.KeyCode.R, function()
+    --ดูดitems
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local hrp = character:WaitForChild("HumanoidRootPart") -- จุดศูนย์กลางตัวละคร
+
+    local itemsFolder = workspace:WaitForChild("RuntimeItems") -- โฟลเดอร์ที่มีไอเทม
+    local storeRemote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem")
+
+    local range = 2500 -- ระยะเก็บไอเทม (เมตร)
+    
+    print("🎒🗝️Collect Things🎒🗝️")
+
+    -- ฟังก์ชันสำหรับเช็กระยะและเก็บไอเทม
+    local function collectItems()
+        for _, item in ipairs(itemsFolder:GetChildren()) do
+            if item:IsA("Model") then
+                local primaryPart = item.PrimaryPart or item:FindFirstChildWhichIsA("BasePart")
+                if primaryPart then
+                    local distance = (primaryPart.Position - hrp.Position).Magnitude
+                    if distance <= range then
+                        storeRemote:FireServer(item) -- ส่งไปเก็บ
+                    end
+                end
+            end
+        end
+    end
+
+    collectItems()
+    task.wait() -- เช็กทุก 1 วินาที (ปรับได้)
+end)
+----------------------------------- Shortcut Key Auto Automatically Discards All Items -----------------------------------
+Section:NewKeybind("🗑️🗝️Shortcut Key Auto Automatically Discards All Items🗑️🗝️", "All of the things", Enum.KeyCode.T, function()
+    local Number = 0
+    
+    print("🗑️🗝️Throw Away Everything🗑️🗝️")
+
+    while Number < 10 do  -- แก้เงื่อนไขให้ทำงานจนกว่าจะถึง 10
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
+        task.wait()  -- ทิ้งไอเทมทุก 1 วินาที (สามารถเปลี่ยนค่าได้)
+        Number = Number + 1  -- เพิ่มค่าของ Number
+    end
 end)
