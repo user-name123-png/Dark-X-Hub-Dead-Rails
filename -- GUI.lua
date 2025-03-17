@@ -8,7 +8,7 @@ local Section = Tab:NewSection("📌Subscride📌")
 Section:NewButton("Subscribe Me(YouTube)", "Subscribe to the YouTube channel Dark_MAX0207.", function()
     print("Thank you for subscribing To The YouTube.")
 end)
-Section:NewButton("Subscribe Me(TikTok)", "Subscribe to the TikTok channel Dark_MAX0207.", function()
+Section:NewButton("Subscribe Me(TikTok)", "Subscribe to the TikTok channel dark_3014.", function()
     print("Thank you for subscribing To The TikTok.")
 end)
 ----------------------------------- MENU -----------------------------------
